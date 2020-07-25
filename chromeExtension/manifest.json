@@ -10,7 +10,9 @@
    "default_popup": "popup.html"
   },
   "permissions": [
-   "activeTab",
+   "identity",
+   "identity.email",
+   "tabs",
    "http://localhost:8080/*"
    ]
 }
