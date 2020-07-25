@@ -20,24 +20,34 @@ document.addEventListener('DOMContentLoaded', function() {
             total = data[object]["id"];
          }
 
+     var xhr1 = new XMLHttpRequest();
+     if (uid != -1) {
+
+     var xhr2 = new XMLHttpRequest();
+     xhr2.open("DELETE", 'http://localhost:8080/api/users/'.concat(uid), true);
+     xhr2.onreadystatechange = function () {
+     if (xhr2.readyState == 4) {
+       alert("done");
+     }}
+     xhr2.send("id=".concat(uid));
+     }
+
      // update server with info on current tab
      var xhr1 = new XMLHttpRequest();
      xhr1.open("POST", 'http://localhost:8080/api/users/', true);
      xhr1.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
+     
      chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
        var url = tabs[0].url;
        var d = new Date();
        var uuid = uid;
-       if (uuid == -1) {
-          uuid = total+1;
-       }
        var a = "username=".concat(uniqueId);
        var b = "&lastVisitedTime=".concat(d.toLocaleDateString());
        var c = "&lastVisitedUrl=".concat(url);
        alert(a.concat(b,c));
        xhr1.send(a.concat(b,c));
      });
+
     }
   }
   xhr.send();
