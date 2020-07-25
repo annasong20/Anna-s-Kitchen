@@ -1,18 +1,19 @@
 document.addEventListener('DOMContentLoaded', function() {
   var checkPageButton = document.getElementById('checkPage');
   checkPageButton.addEventListener('click', function() {
-     
-  var activeTab = "";
 
-  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-     activeTab = tabs[0];
-     //alert(activeTab.url);
-  });
+  // code to GET users
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", "http://localhost:8080/api/users", true);
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4) {
+        alert(xhr.responseText);
+        chrome.tabs.create({url: 'friends.html'}) 
+    }
+  }
+  xhr.send();
 
-  chrome.tabs.create({'url': chrome.extension.getURL('friends.html')}, function(tab) {
-      // Tab opened.
-  });
-
+  
 
   }, false);
 }, false);
