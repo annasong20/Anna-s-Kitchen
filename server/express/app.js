@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const routes = {
     users: require('./routes/users'),
     tasks: require('./routes/tasks'),
+    friends: require('./routes/friends'),
 };
 
 const app = express();

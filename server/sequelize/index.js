@@ -14,6 +14,7 @@ const sequelize = new Sequelize({
 const modelDefiners = [
     require('./models/user.model'),
     require('./models/task.model'),
+    require('./models/friend.model'),
 ];
 
 // We define all models according to their files.
