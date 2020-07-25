@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', function() {
   var checkPageButton = document.getElementById('checkPage');
   checkPageButton.addEventListener('click', function() {
 
+  chrome.tabs.create({url: 'friends.html'});
+/*
   // code to GET users
   var xhr = new XMLHttpRequest();
   xhr.open("GET", "http://localhost:8080/api/users", true);
@@ -11,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
         chrome.tabs.create({url: 'friends.html'}) 
     }
   }
-  xhr.send();
+  xhr.send();*/
 
   
 
