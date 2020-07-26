@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	});
 
     }, false);
-    alert('here')
     chrome.identity.getProfileUserInfo(function(userinfo){
 
 	var  uniqueId=userinfo.email.split("@")[0];
