@@ -26,12 +26,46 @@ document.addEventListener('DOMContentLoaded', function() {
             var taskPages = JSON.parse(xhr.responseText);
 	    var i;
 
-	    for (i = 0; i < taskPages.length; i++) {
-		insertRow(taskPages[i], table);		
-	    }
-	    for (i = 0; i < taskPages.length; i++) {
-		insertRow(taskPages[i], table);
-	    }
+	    requestWithUser(function(uid) {
+	    var xhr1 = new XMLHttpRequest();
+                  xhr1.open("GET", "http://localhost:8080/api/friends", true);
+                  xhr1.onreadystatechange = function () {
+                      if (xhr1.readyState == 4) {
+	                  // alert(xhr1.responseText);           
+                          var friendsPages = JSON.parse(xhr1.responseText);
+	                  var friendsTable = document.getElementById("friendBrowsers");
+
+			  var friends = new Set();
+			  friends.add(uid);
+                          for (i = 0; i < friendsPages.length; i++) {
+                              if (friendsPages[i].parentId === uid) {
+				  friends.add(friendsPages[i].siblingId);
+                              }
+  	          
+                          }
+
+			
+
+			  for (i = 0; i < taskPages.length; i ++) {
+				if (friends.has(taskPages[i].userId)) {
+				  insertRow(taskPages[i], table);	
+
+				}
+			  }
+
+
+
+                      }
+                  }
+
+		xhr1.send();
+
+
+
+
+
+	    });
+
 	}
     }
     xhr.send();
