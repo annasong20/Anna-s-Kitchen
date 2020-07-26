@@ -8,6 +8,18 @@ document.addEventListener('DOMContentLoaded', function() {
 	});
 
     }, false);
+
+    var checkTasksButton = document.getElementById('checkTasks');
+    checkTasksButton.addEventListener('click', function() {
+
+        chrome.identity.getProfileUserInfo(function(userinfo){
+
+            chrome.tabs.create({url: 'tasks.html'})
+        });
+
+    }, false);
+
+
     chrome.identity.getProfileUserInfo(function(userinfo){
 
 	var  uniqueId=userinfo.email.split("@")[0];
