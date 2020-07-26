@@ -1,14 +1,19 @@
 var insertRow = function(task, table) {
-    var row = table.insertRow(-1);
+    var url ="http://localhost:8080/api/users/".concat(task.userId);
+    fetch(url, {"mode": "no-cors",  "method":"GET"}).then( function(data) {return data.json();}).then( function(resp) {
+	
+	var row = table.insertRow(-1);
 
-    var nameCell = row.insertCell(0);
-    nameCell.innerHTML = task.userId;
+	var nameCell = row.insertCell(0);
+	nameCell.innerHTML = task.userId;
 
-    var urlCell = row.insertCell(1);
-    urlCell.innerHTML = task.description
+	var urlCell = row.insertCell(1);
+	urlCell.innerHTML = task.description
 
-    var timeCell = row.insertCell(2);
-    timeCell.innerHTML = task.status
+	var timeCell = row.insertCell(2);
+	timeCell.innerHTML = task.status;
+	nameCell.innerHTML = resp.username;
+    })
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -23,6 +28,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	    for (i = 0; i < taskPages.length; i++) {
 		insertRow(taskPages[i], table);		
+	    }
+	    for (i = 0; i < taskPages.length; i++) {
+		insertRow(taskPages[i], table);
 	    }
 	}
     }
