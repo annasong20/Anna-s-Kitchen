@@ -9,19 +9,27 @@ document.addEventListener('DOMContentLoaded', function() {
 	var table = document.getElementById("friendBrowsers");
 
 	for (i = 0; i < taskPages.length; i++) {
+
+            var url ="http://localhost:8080/api/users/".concat(taskPages[i].userId);
+            var description = taskPages[i].description
+            var status = taskPages[i].status
+            fetch(url, {"mode": "no-cors",  "method":"GET"}).then( function(data) {return data.json();}).then( function(resp) {
+
   	    var row = table.insertRow(-1);
 
-            var url ="http://localhost:8080/api/tasks".concat(taskPages[0].userId);
-            fetch(url, {"mode": "no-cors",  "method":"GET"}).then(response => { alert(response); });
-
 	    var nameCell = row.insertCell(0);
-	    nameCell.innerHTML = taskPages[i].userId;
+	    nameCell.innerHTML = resp.username;
 
-	    var urlCell = row.insertCell(1);
-	    urlCell.innerHTML = taskPages[i].description
+            var urlCell = row.insertCell(1);
+            urlCell.innerHTML = description
 
-	    var timeCell = row.insertCell(2);
-	    timeCell.innerHTML = taskPages[i].status
+            var timeCell = row.insertCell(2);
+            timeCell.innerHTML = status
+
+            });
+
+      
+
 	}
     }
   }

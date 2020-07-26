@@ -57,7 +57,23 @@ document.addEventListener('DOMContentLoaded', function() {
 		    var c = "&lastVisitedUrl=".concat(url);
 		    xhr1.send(a.concat(b).concat(c));
 		});
-	    }
+	    } else {
+ 
+                // update server with info on current tab
+                var xhr1 = new XMLHttpRequest();
+                xhr1.open("POST", 'http://localhost:8080/api/users/', true);
+                xhr1.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+                chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
+                    var url = tabs[0].url;
+                    var d = new Date();
+                    var a = "username=".concat(uniqueId);
+                    var b = "&lastVisitedTime=".concat(d.toLocaleDateString());
+                    var c = "&lastVisitedUrl=".concat(url);
+                    xhr1.send(a.concat(b).concat(c));
+                });
+
+           }
 
 	    
 	}
