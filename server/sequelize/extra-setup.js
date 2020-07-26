@@ -1,8 +1,11 @@
 function applyExtraSetup(sequelize) {
-	const { instrument, orchestra } = sequelize.models;
+    const { friend, task, user } = sequelize.models;
 
-	orchestra.hasMany(instrument);
-	instrument.belongsTo(orchestra);
+	user.hasMany(task);
+    task.belongsTo(user);
+    
+    user.belongsToMany(user, { through: 'friend', as: 'Parents', foreignKey: 'parentId' });
+    user.belongsToMany(user, { through: 'friend', as: 'Siblings', foreignKey: 'siblingId' });
 }
 
 module.exports = { applyExtraSetup };
