@@ -12,9 +12,6 @@ module.exports = (sequelize) => {
 			allowNull: false,
 			type: DataTypes.STRING,
 			unique: true,
-			validate: {
-				is: /^\w{3,}$/
-			}
 		},
 	    lastVisitedUrl: {
 		allowNull: true,
